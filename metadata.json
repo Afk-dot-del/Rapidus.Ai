@@ -1,0 +1,6 @@
+{
+  "name": "Rapidus AI Ultra",
+  "description": "Rapidus AI Ultra Pro workspace and developer diagnostics suite created by Darsh Rana and Samarth Rana.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

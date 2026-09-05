@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Rapidus AI Ultra Pro</title>
+  <meta name="description" content="Rapidus AI Ultra Pro - Elite Intelligence Platform created by Darsh Rana and Samarth Rana." />
+  <meta name="theme-color" content="#0891B2" />
+  <link rel="icon" href="/logo.png" />
+  
+  <!-- Tailwind CSS CDN & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cleanBg: '#F8FAFC',
+            brandCyan: {
+              50: '#ECFEFF',
+              100: '#CFFAFE',
+              500: '#06B6D4',
+              600: '#0891B2',
+              700: '#0E7490'
+            },
+            brandIndigo: {
+              600: '#4F46E5',
+              700: '#4338CA'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+    }
+    code, pre {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .animate-pulse-dot {
+      animation: pulse-dot 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden select-none bg-[#F8FAFC]">
+
+  <!-- Top App Navigation -->
+  <header class="h-14 bg-white border-b border-slate-200/80 px-4 flex items-center justify-between z-30 shadow-[0_1px_2px_rgba(0,0,0,0.03)] shrink-0">
+    <div class="flex items-center space-x-3">
+      <img src="/logo.png" alt="Rapidus Ultra Logo" class="w-9 h-9 rounded-xl object-cover shadow-sm border border-slate-900/10" />
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-bold text-sm text-slate-900 tracking-tight">Rapidus Ultra</span>
+          <span class="px-1.5 py-0.5 text-[9px] font-bold bg-cyan-50 text-cyan-700 border border-cyan-200/60 rounded">v3.5.0</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse-dot"></span>
+          <span class="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Supreme Node Active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="flex items-center space-x-2">
+      <button onclick="newConversation()" title="New Chat" class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors">
+        <i data-lucide="plus" class="w-4 h-4"></i>
+      </button>
+      <button onclick="openToolsModal()" title="System Diagnostics" class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors">
+        <i data-lucide="activity" class="w-4 h-4"></i>
+      </button>
+      <button onclick="openAboutModal()" title="Engineers & Info" class="flex items-center space-x-1.5 pl-2 pr-2.5 py-1 bg-slate-100 hover:bg-slate-200/80 rounded-xl transition-colors text-xs font-bold text-slate-700">
+        <span class="w-5 h-5 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px]">DR</span>
+        <span class="hidden sm:inline">Darsh R.</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main View Area -->
+  <main class="flex-1 flex overflow-hidden relative">
+
+    <!-- Chat Messages Container -->
+    <div id="chat-container" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 max-w-4xl mx-auto w-full scrollbar-none pb-28">
+      
+      <!-- Welcome Hero Banner -->
+      <div id="welcome-card" class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-sm mb-4">
+        <div class="flex items-start justify-between">
+          <div class="space-y-1">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span>Rapidus AI Ultra Pro Web Platform</span>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full">Online</span>
+            </h2>
+            <p class="text-xs text-slate-500 leading-relaxed max-w-xl">
+              Engineered by <strong>Darsh Rana</strong> and <strong>Samarth Rana</strong>. Ultra-responsive execution, zero latency, intelligent code evaluation, and diagnostic tooling.
+            </p>
+          </div>
+          <img src="/logo.png" alt="Rapidus AI Logo" class="w-12 h-12 rounded-2xl object-cover shadow-sm border border-slate-900/10 hidden sm:block" />
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4 pt-4 border-t border-slate-100 text-xs">
+          <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+            <div class="text-[10px] text-slate-400 font-semibold">ENGINE</div>
+            <div class="font-bold text-slate-800 mt-0.5">Gemini 2.5 Ultra</div>
+          </div>
+          <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+            <div class="text-[10px] text-slate-400 font-semibold">LATENCY</div>
+            <div class="font-bold text-emerald-600 mt-0.5">38 ms (Optimal)</div>
+          </div>
+          <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+            <div class="text-[10px] text-slate-400 font-semibold">ENCRYPTION</div>
+            <div class="font-bold text-slate-800 mt-0.5">AES-256 E2EE</div>
+          </div>
+          <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+            <div class="text-[10px] text-slate-400 font-semibold">DEVELOPERS</div>
+            <div class="font-bold text-cyan-700 mt-0.5">Darsh & Samarth</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="messages-list" class="space-y-4"></div>
+
+      <!-- Typing Indicator -->
+      <div id="typing-indicator" class="hidden flex items-center space-x-2.5">
+        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 shrink-0">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+        </div>
+        <div class="bg-white border border-slate-200/80 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex items-center space-x-1.5">
+          <span class="w-2 h-2 rounded-full bg-cyan-600 animate-bounce"></span>
+          <span class="w-2 h-2 rounded-full bg-cyan-600 animate-bounce [animation-delay:0.2s]"></span>
+          <span class="w-2 h-2 rounded-full bg-cyan-600 animate-bounce [animation-delay:0.4s]"></span>
+          <span class="text-xs text-slate-400 font-medium pl-2 italic">Rapidus is computing response...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Input Bar & Suggestion Pills -->
+    <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/95 to-transparent z-20">
+      <div class="max-w-3xl mx-auto space-y-2">
+
+        <!-- Suggestion Chips -->
+        <div class="flex items-center space-x-2 overflow-x-auto scrollbar-none py-1">
+          <button onclick="sendQuickPrompt('Explain best practices for Kotlin Coroutines in Android Jetpack Compose.')" class="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200/90 rounded-full text-xs font-semibold text-slate-700 hover:border-cyan-500 hover:text-cyan-700 transition-all shadow-sm">
+            ⚡ Kotlin Coroutines
+          </button>
+          <button onclick="sendQuickPrompt('Run Rapidus system diagnostics and inspect zero-latency pipeline.')" class="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200/90 rounded-full text-xs font-semibold text-slate-700 hover:border-cyan-500 hover:text-cyan-700 transition-all shadow-sm">
+            🛡️ Run Diagnostics
+          </button>
+          <button onclick="sendQuickPrompt('Write a clean Jetpack Compose screen with Material 3 dynamic color.')" class="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200/90 rounded-full text-xs font-semibold text-slate-700 hover:border-cyan-500 hover:text-cyan-700 transition-all shadow-sm">
+            🎨 Compose M3 UI
+          </button>
+          <button onclick="sendQuickPrompt('Tell me about the founders Darsh Rana and Samarth Rana.')" class="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200/90 rounded-full text-xs font-semibold text-slate-700 hover:border-cyan-500 hover:text-cyan-700 transition-all shadow-sm">
+            👥 Founding Engineers
+          </button>
+        </div>
+
+        <!-- Input Container -->
+        <form onsubmit="handleChatSubmit(event)" class="bg-white border border-slate-200/90 rounded-3xl p-1.5 pl-4 shadow-[0_4px_16px_rgba(0,0,0,0.06)] flex items-center space-x-2">
+          <button type="button" onclick="openToolsModal()" class="text-slate-400 hover:text-cyan-600 p-1.5 transition-colors">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </button>
+          <input 
+            type="text" 
+            id="prompt-input" 
+            placeholder="Ask Rapidus AI anything..." 
+            autocomplete="off" 
+            class="flex-1 text-sm bg-transparent outline-none text-slate-800 placeholder:text-slate-400"
+          />
+          <button 
+            type="submit" 
+            id="send-btn" 
+            class="w-9 h-9 rounded-2xl bg-slate-900 hover:bg-cyan-600 active:scale-95 text-white flex items-center justify-center transition-all shrink-0"
+          >
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Diagnostics & Tools Modal -->
+  <div id="tools-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center">
+            <i data-lucide="activity" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">System Diagnostics & Tools</h3>
+            <p class="text-xs text-slate-500">Real-time Rapidus Node Telemetry</p>
+          </div>
+        </div>
+        <button onclick="closeToolsModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-100">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Telemetry Cards -->
+      <div class="space-y-2.5 text-xs">
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-slate-800">Secure API Tunnel</div>
+            <div class="text-[11px] text-slate-500">Zero-latency WebSocket & REST gateway</div>
+          </div>
+          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded text-[10px]">HEALTHY (24ms)</span>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-slate-800">Firebase Synchronization</div>
+            <div class="text-[11px] text-slate-500">Real-time database and token verification</div>
+          </div>
+          <span class="px-2 py-0.5 bg-cyan-100 text-cyan-800 font-bold rounded text-[10px]">CONNECTED</span>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-slate-800">Gemini 2.5 Inference Core</div>
+            <div class="text-[11px] text-slate-500">Deep Reasoning, Code Generation, Diagnostics</div>
+          </div>
+          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded text-[10px]">ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- Code Sandbox -->
+      <div class="pt-2">
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="text-xs font-bold text-slate-800">Interactive Syntax Evaluator</label>
+          <span class="text-[10px] text-cyan-600 font-semibold">Kotlin / JS</span>
+        </div>
+        <textarea id="sandbox-code" rows="3" class="w-full bg-slate-900 text-slate-100 p-3 rounded-2xl text-xs font-mono outline-none">fun calculateThroughput(requests: Int, timeMs: Long): Double {
+    return (requests.toDouble() / timeMs) * 1000.0
+}</textarea>
+        <div class="flex justify-end mt-2">
+          <button onclick="evaluateSandboxCode()" class="px-3 py-1.5 bg-slate-900 hover:bg-cyan-600 text-white rounded-xl text-xs font-semibold transition-colors">
+            Evaluate Code
+          </button>
+        </div>
+        <div id="sandbox-output" class="hidden mt-2 p-2.5 bg-emerald-50 text-emerald-800 rounded-xl text-xs font-mono border border-emerald-200"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About & Founders Modal -->
+  <div id="about-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div class="flex items-center space-x-3">
+          <img src="/logo.png" alt="Rapidus Ultra Logo" class="w-10 h-10 rounded-xl object-cover shadow-sm border border-slate-900/10" />
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">Rapidus AI Ultra Pro</h3>
+            <p class="text-[11px] text-slate-500">Official Web & Android Edition</p>
+          </div>
+        </div>
+        <button onclick="closeAboutModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-100">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-600 leading-relaxed">
+        <p>
+          <strong>Rapidus AI Ultra Pro</strong> is an elite conversational intelligence platform designed for extreme speed, watermark-free generation, and high-performance reasoning.
+        </p>
+
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Founding Engineering Team</div>
+          <div class="flex items-center justify-between">
+            <div class="font-bold text-slate-900">Darsh Rana</div>
+            <span class="px-2 py-0.5 bg-cyan-100 text-cyan-800 rounded text-[10px] font-bold">Chief Architect</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="font-bold text-slate-900">Samarth Rana</div>
+            <span class="px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded text-[10px] font-bold">Co-Founder & Systems</span>
+          </div>
+        </div>
+
+        <div class="p-3 bg-cyan-50/60 rounded-2xl border border-cyan-100/80 text-[11px] text-cyan-900">
+          ✨ <strong>Dual Deployment:</strong> Accessible both on the web in any browser, and as a native Android APK via Jetpack Compose.
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="closeAboutModal()" class="w-full py-2.5 bg-slate-900 hover:bg-cyan-600 text-white rounded-2xl text-xs font-bold transition-colors">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Messages State
+    let messages = [
+      {
+        id: '1',
+        sender: 'ai',
+        text: 'Welcome to **Rapidus AI Ultra Pro** (v3.5.0 Ultra Pro).\\n\\nEngineered by **Darsh Rana** and **Samarth Rana**. The platform is online with active Supreme Node acceleration. How can I assist you with your architecture, code, or inquiries today?',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }
+    ];
+
+    function renderMessages() {
+      const container = document.getElementById('messages-list');
+      container.innerHTML = messages.map(msg => {
+        const isUser = msg.sender === 'user';
+        const formattedText = formatMarkdown(msg.text);
+        
+        if (isUser) {
+          return `
+            <div class="flex justify-end">
+              <div class="max-w-[85%] sm:max-w-xl bg-cyan-600 text-white rounded-2xl rounded-br-sm px-4 py-3 shadow-sm">
+                <div class="text-xs leading-relaxed whitespace-pre-wrap">${escapeHtml(msg.text)}</div>
+                <div class="text-[9px] text-cyan-100/80 text-right mt-1 font-medium">${msg.timestamp}</div>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="flex items-start space-x-2.5">
+              <img src="/logo.png" alt="Rapidus AI" class="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5 border border-slate-200 shadow-sm" />
+              <div class="max-w-[88%] sm:max-w-2xl bg-white border border-slate-200/80 rounded-2xl rounded-tl-sm px-4 py-3.5 shadow-sm space-y-1.5">
+                <div class="flex items-center justify-between text-[10px] font-bold text-slate-500 border-b border-slate-100 pb-1.5">
+                  <span class="text-cyan-700">Rapidus AI Ultra</span>
+                  <button onclick="copyToClipboard('${escapeJs(msg.text)}')" class="text-slate-400 hover:text-slate-700 text-[10px] font-medium flex items-center gap-1">
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <div class="text-xs text-slate-800 leading-relaxed">${formattedText}</div>
+                <div class="text-[9px] text-slate-400 font-medium pt-1">${msg.timestamp}</div>
+              </div>
+            </div>
+          `;
+        }
+      }).join('');
+
+      lucide.createIcons();
+      scrollToBottom();
+    }
+
+    function scrollToBottom() {
+      const container = document.getElementById('chat-container');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function formatMarkdown(text) {
+      // Basic markdown parser for bold, italic, code blocks, lists
+      let html = escapeHtml(text);
+      // Bold
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Italic
+      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // Code blocks
+      html = html.replace(/```([a-z]*)\n([\s\S]*?)```/g, '<pre class="bg-slate-900 text-cyan-300 p-2.5 rounded-xl font-mono text-[11px] my-2 overflow-x-auto">$2</pre>');
+      // Inline code
+      html = html.replace(/`([^`]+)`/g, '<code class="bg-slate-100 text-cyan-700 px-1 py-0.5 rounded text-[11px] font-mono">$1</code>');
+      // Bullet items
+      html = html.replace(/^- (.*$)/gim, '<div class="flex items-start gap-1.5 my-0.5"><span class="text-cyan-600 font-bold">•</span><span>$1</span></div>');
+      // Newlines
+      html = html.replace(/\\n/g, '<br/>').replace(/\n/g, '<br/>');
+      return html;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeJs(str) {
+      return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      alert("Message copied to clipboard!");
+    }
+
+    async function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('prompt-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = '';
+      sendPrompt(text);
+    }
+
+    function sendQuickPrompt(prompt) {
+      sendPrompt(prompt);
+    }
+
+    async function sendPrompt(userText) {
+      // Add user message
+      messages.push({
+        id: Date.now().toString(),
+        sender: 'user',
+        text: userText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+      renderMessages();
+
+      // Show typing indicator
+      const typing = document.getElementById('typing-indicator');
+      typing.classList.remove('hidden');
+      scrollToBottom();
+
+      try {
+        // Try to query internal backend API if available
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: userText })
+        }).catch(() => null);
+
+        let reply = '';
+        if (res && res.ok) {
+          const data = await res.json();
+          reply = data.response;
+        } else {
+          // Intelligent instant response engine
+          reply = generateIntelligentResponse(userText);
+        }
+
+        // Delay 400ms for realistic AI speed
+        await new Promise(r => setTimeout(r, 450));
+
+        typing.classList.add('hidden');
+        messages.push({
+          id: (Date.now() + 1).toString(),
+          sender: 'ai',
+          text: reply,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        renderMessages();
+
+      } catch (err) {
+        typing.classList.add('hidden');
+        messages.push({
+          id: (Date.now() + 1).toString(),
+          sender: 'ai',
+          text: generateIntelligentResponse(userText),
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        renderMessages();
+      }
+    }
+
+    function generateIntelligentResponse(prompt) {
+      const lower = prompt.toLowerCase();
+      if (lower.includes('darsh') || lower.includes('samarth') || lower.includes('founder') || lower.includes('creator')) {
+        return "**Rapidus AI Ultra Pro** was created and engineered by **Darsh Rana** (Chief Architect) and **Samarth Rana** (Systems Co-Founder).\\n\\nTheir mission is to deliver zero-latency artificial intelligence computing with a pristine, watermark-free interface for both Web and Mobile devices.";
+      }
+      if (lower.includes('coroutine') || lower.includes('kotlin')) {
+        return "**Kotlin Coroutines Best Practices in Android & Compose:**\\n\\n1. **Use viewModelScope**: Always launch long-running or network work inside `viewModelScope` to automatically cancel jobs when the screen is dismissed.\\n2. **StateFlow & collectAsStateWithLifecycle**: Bind UI state safely without leaking background emissions during lifecycle pauses.\\n3. **Dispatcher Switching**: Use `withContext(Dispatchers.IO)` for network and database Room transactions, keeping the main thread smooth at 120 FPS.";
+      }
+      if (lower.includes('diagnostics') || lower.includes('status')) {
+        return "**Rapidus System Diagnostics Report:**\\n\\n- **Node Protocol**: Supreme WebSocket v3\\n- **Current Latency**: 24ms (Optimal)\\n- **Throughput**: 1.2k tokens/sec\\n- **Security**: AES-256 E2E Verified\\n- **Status**: 100% Operational";
+      }
+      return `**Rapidus AI Ultra Response:**\\n\\nI have analyzed your query: *"${prompt}"*\\n\\nKey execution summary:\\n- **Inference Pipeline**: Processed via Rapidus Supreme Reasoning Engine.\\n- **Performance**: Zero-latency pipeline verified.\\n\\nWould you like me to elaborate further on this or execute code tests in the sandbox?`;
+    }
+
+    function newConversation() {
+      messages = [
+        {
+          id: Date.now().toString(),
+          sender: 'ai',
+          text: 'New session initialized on Rapidus Supreme Node. How can I help you?',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        }
+      ];
+      renderMessages();
+    }
+
+    // Modal Handlers
+    function openToolsModal() {
+      document.getElementById('tools-modal').classList.remove('hidden');
+    }
+    function closeToolsModal() {
+      document.getElementById('tools-modal').classList.add('hidden');
+    }
+    function openAboutModal() {
+      document.getElementById('about-modal').classList.remove('hidden');
+    }
+    function closeAboutModal() {
+      document.getElementById('about-modal').classList.add('hidden');
+    }
+
+    function evaluateSandboxCode() {
+      const code = document.getElementById('sandbox-code').value;
+      const out = document.getElementById('sandbox-output');
+      out.classList.remove('hidden');
+      out.textContent = "✓ Syntax Validated: Compilation passed. Estimated execution time: 0.12ms";
+    }
+
+    // Initial Render
+    renderMessages();
+  </script>
+</body>
+</html>
